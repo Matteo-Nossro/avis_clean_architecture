@@ -2,6 +2,7 @@ package fr.esgi.avis.domain.models;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class Plateforme {
     private final Long id;

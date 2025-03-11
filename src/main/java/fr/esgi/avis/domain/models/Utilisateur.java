@@ -6,6 +6,7 @@ public abstract class Utilisateur {
     protected final String motDePasse;
     protected final String email;
 
+
     protected Utilisateur(Long id, String pseudo, String motDePasse, String email) {
         this.id = id;
         this.pseudo = pseudo;
@@ -13,8 +14,20 @@ public abstract class Utilisateur {
         this.email = email;
     }
 
-    public Long getId() { return id; }
-    public String getPseudo() { return pseudo; }
-    public String getMotDePasse() { return motDePasse; }
-    public String getEmail() { return email; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

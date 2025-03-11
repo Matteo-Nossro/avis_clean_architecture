@@ -1,27 +1,44 @@
 package fr.esgi.avis.domain.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Jeu {
-    private final Long id;
-    private final String nom;
-    private final Editeur editeur;
-    private final LocalDate dateDeSortie;
-    private boolean estDisponible;
+    private Long id;
+    private String nom;
+    private Editeur editeur;
+    private Genre genre;
+    private Classification classification;
+    private String description;
+    private LocalDate dateDeSortie;
+    private List<Plateforme> plateformes;
+    private String image;
+    private float prix;
 
-    public Jeu(Long id, String nom, Editeur editeur, LocalDate dateDeSortie) {
-        this.id = id;
+
+    public Jeu(String nom) {
+        super();
+        this.nom = nom;
+    }
+
+    public Jeu(String nom, Editeur editeur) {
         this.nom = nom;
         this.editeur = editeur;
+    }
+    public Jeu(String nom, LocalDate dateDeSortie, Editeur editeur) {
+        this(nom, editeur);
         this.dateDeSortie = dateDeSortie;
-        this.estDisponible = true;
     }
 
-    public void marquerCommeIndisponible() {
-        this.estDisponible = false;
+    public Jeu(String nom, String description, LocalDate dateSortie, Editeur editeur) {
+        this(nom, dateSortie, editeur);
+        this.description = description;
     }
 
-    public boolean estDisponible() {
-        return estDisponible;
+    public Jeu(String nom, LocalDate dateSortie, Editeur editeur, Genre genre) {
+        this(nom, null, dateSortie, editeur);
+        this.genre = genre;
     }
+
+
 }

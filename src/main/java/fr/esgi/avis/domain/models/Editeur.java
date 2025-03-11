@@ -11,7 +11,5 @@ public class Editeur {
         this.id = id;
         this.nom = nom;
     }
-
-    public Long getId() { return id; }
     public String getNom() { return nom; }
 }
