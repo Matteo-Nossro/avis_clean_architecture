@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: *">
-<th:block>
-  <h2>Liste des jeux</h2>
-  <ul>
-    <li th:each="jeu : ${jeux}">
-      <a th:href="@{|/jeux/${jeu.id}/avis|}" th:text="${jeu.nom}">Jeu</a>
-    </li>
-  </ul>
-</th:block>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des Jeux</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+  <h1>Catalogue de Jeux</h1>
+
+  <div class="row">
+    <div th:each="jeu : ${jeux}" class="col-md-4 mb-4">
+      <div class="card">
+        <img th:if="${jeu.image}" th:src="${jeu.image}" class="card-img-top" alt="Image du jeu">
+        <div th:unless="${jeu.image}" class="card-img-top bg-light text-center py-5">
+          <span>Pas d'image disponible</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title" th:text="${jeu.nom}">Nom du jeu</h5>
+          <p class="card-text">
+            <span th:text="${jeu.editeur?.nom}">Éditeur</span>
+            <span th:if="${jeu.genre}" th:text="' | ' + ${jeu.genre.nom}">Genre</span>
+          </p>
+          <p class="card-text" th:if="${jeu.description}" th:text="${#strings.abbreviate(jeu.description, 100)}">Description</p>
+          <p class="card-text" th:if="${jeu.prix > 0}">
+            <strong th:text="${jeu.prix} + ' €'">Prix</strong>
+          </p>
+          <a th:href="@{'/jeux/' + ${jeu.id}}" class="btn btn-primary">Voir détails</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
