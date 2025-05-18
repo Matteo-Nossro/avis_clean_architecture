@@ -5,6 +5,7 @@ import fr.esgi.avis.useCases.Avis.AvisUseCases;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -24,6 +25,10 @@ public class AvisController {
 
     public Optional<Avis> getAvisById(Long id) {
         return avisUseCases.getAvisById(id);
+    }
+
+    public List<Avis> getAvisByJeuId(Long jeuId) {
+        return avisUseCases.getAvisByJeuId(jeuId);
     }
 
     public void deleteAvis(Long id) {

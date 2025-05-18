@@ -4,6 +4,8 @@ import fr.esgi.avis.domain.Avis.AvisDataSourcePort;
 import fr.esgi.avis.domain.Avis.model.Avis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,6 +28,13 @@ public class AvisJpaAdapter implements AvisDataSourcePort {
     @Override
     public void deleteById(Long id) {
         avisJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Avis> findByJeuId(Long jeuId) {
+        return avisJpaRepository.findByJeuId(jeuId).stream()
+                .map(AvisMapper::toDomain)
+                .toList();
     }
 
     @Override

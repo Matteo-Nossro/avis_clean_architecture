@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <title th:insert="~{::title}">Mon Application Avis</title>
+</head>
+<body>
+<nav>
+  <a th:href="@{/login}">Login</a> |
+  <a th:href="@{/jeux}">Jeux</a> |
+  <a th:href="@{/moderateur/ajout-jeu}">Ajouter Jeu</a> |
+  <a th:href="@{/moderateur/moderation-avis}">Modération</a>
+</nav>
+<hr/>
+<div class="container">

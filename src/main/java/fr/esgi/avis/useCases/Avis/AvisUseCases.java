@@ -4,6 +4,7 @@ import fr.esgi.avis.domain.Avis.model.Avis;
 import fr.esgi.avis.domain.Avis.AvisDataSourcePort;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public class AvisUseCases {
@@ -36,5 +37,9 @@ public class AvisUseCases {
 
     public void deleteAvis(Long id) {
         avisDataSourcePort.deleteById(id);
+    }
+
+    public List<Avis> getAvisByJeuId(Long jeuId) {
+        return avisDataSourcePort.findByJeuId(jeuId);
     }
 }

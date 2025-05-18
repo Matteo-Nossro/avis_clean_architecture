@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: *">
+<th:block>
+  <h2 th:text="${jeu.nom} + ' – Avis'">Avis du jeu</h2>
+  <a th:href="@{|/jeux/${jeu.id}/avis/nouveau|}">Rédiger un avis</a>
+  <table>
+    <tr><th>Joueur</th><th>Note</th><th>Texte</th></tr>
+    <tr th:each="a : ${avis}">
+      <td th:text="${a.joueurId}"></td>
+      <td th:text="${a.note}"></td>
+      <td th:text="${a.description}"></td>
+    </tr>
+  </table>
+</th:block>

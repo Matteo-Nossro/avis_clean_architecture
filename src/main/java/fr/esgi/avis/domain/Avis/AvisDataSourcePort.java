@@ -2,6 +2,7 @@ package fr.esgi.avis.domain.Avis;
 
 import fr.esgi.avis.domain.Avis.model.Avis;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,6 +29,8 @@ public interface AvisDataSourcePort {
      * @param id L'identifiant de l'avis à supprimer.
      */
     void deleteById(Long id);
+
+    List<Avis> findByJeuId(Long jeuId);
 
     long count();
 }
