@@ -10,6 +10,8 @@ public interface ClassificationDataSourcePort {
     Optional<Classification> findById(Long id);
     void deleteById(Long id);
     List<Classification> findAll();
+    long count();
+    Optional<Classification> findByNom(String nom);
 }
 
 // Ce port respecte la Clean Architecture en définissant une interface pour l'accès aux données de l'entité Classification.

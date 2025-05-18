@@ -28,6 +28,12 @@ public class EditeurJpaAdapter implements EditeurDataSourcePort {
     }
 
     @Override
+    public Optional<Editeur> findByNom(String nom) {
+        return editeurJpaRepository.findByNom(nom)
+                .map(EditeurMapper::toDomain);
+    }
+
+    @Override
     public void deleteById(Long id) {
         editeurJpaRepository.deleteById(id);
     }
@@ -37,5 +43,10 @@ public class EditeurJpaAdapter implements EditeurDataSourcePort {
         return editeurJpaRepository.findAll().stream()
                 .map(EditeurMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long count() {
+        return editeurJpaRepository.count();
     }
 }

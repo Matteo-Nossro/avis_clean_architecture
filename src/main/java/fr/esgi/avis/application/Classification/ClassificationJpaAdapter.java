@@ -28,6 +28,12 @@ public class ClassificationJpaAdapter implements ClassificationDataSourcePort {
     }
 
     @Override
+    public Optional<Classification> findByNom(String nom) {
+        return classificationJpaRepository.findByNom(nom)
+                .map(ClassificationMapper::toDomain);
+    }
+
+    @Override
     public void deleteById(Long id) {
         classificationJpaRepository.deleteById(id);
     }
@@ -37,5 +43,10 @@ public class ClassificationJpaAdapter implements ClassificationDataSourcePort {
         return classificationJpaRepository.findAll().stream()
                 .map(ClassificationMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long count() {
+        return classificationJpaRepository.count();
     }
 }

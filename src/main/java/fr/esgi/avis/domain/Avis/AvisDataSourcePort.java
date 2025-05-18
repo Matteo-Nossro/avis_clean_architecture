@@ -28,6 +28,8 @@ public interface AvisDataSourcePort {
      * @param id L'identifiant de l'avis à supprimer.
      */
     void deleteById(Long id);
+
+    long count();
 }
 
 /*

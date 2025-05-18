@@ -28,6 +28,12 @@ public class GenreJpaAdapter implements GenreDataSourcePort {
     }
 
     @Override
+    public Optional<Genre> findByNom(String nom) {
+        return genreJpaRepository.findByNom(nom)
+                .map(GenreMapper::toDomain);
+    }
+
+    @Override
     public void deleteById(Long id) {
         genreJpaRepository.deleteById(id);
     }
@@ -37,5 +43,10 @@ public class GenreJpaAdapter implements GenreDataSourcePort {
         return genreJpaRepository.findAll().stream()
                 .map(GenreMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long count() {
+        return genreJpaRepository.count();
     }
 }

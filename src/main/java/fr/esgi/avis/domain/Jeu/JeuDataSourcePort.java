@@ -10,6 +10,7 @@ public interface JeuDataSourcePort {
     Optional<Jeu> findById(Long id);
     void deleteById(Long id);
     List<Jeu> findAll();
+    long count();
 }
 
 // Ce port définit les méthodes de persistance pour l'entité Jeu,

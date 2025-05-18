@@ -2,6 +2,7 @@ package fr.esgi.avis.application.Avis;
 
 import fr.esgi.avis.application.Jeu.JeuEntity;
 import fr.esgi.avis.application.Joueur.JoueurEntity;
+import fr.esgi.avis.application.Moderateur.ModerateurEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,4 +41,7 @@ public class AvisEntity {
     private Float note;
 
     private LocalDateTime dateDEnvoi;
+
+    @ManyToOne
+    private ModerateurEntity moderateur;
 }

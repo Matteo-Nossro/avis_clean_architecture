@@ -1,5 +1,6 @@
 package fr.esgi.avis.application.Jeu;
 
+import fr.esgi.avis.application.Classification.ClassificationMapper;
 import fr.esgi.avis.domain.Jeu.model.Jeu;
 import fr.esgi.avis.application.Editeur.EditeurMapper;
 import fr.esgi.avis.application.Genre.GenreMapper;
@@ -24,6 +25,7 @@ public class JeuMapper {
                         .collect(Collectors.toList()))
                 .image(jeuEntity.getImage())
                 .prix(jeuEntity.getPrix())
+                .classification(ClassificationMapper.toDomain(jeuEntity.getClassification()))
                 .build();
     }
 
@@ -43,6 +45,7 @@ public class JeuMapper {
                 .collect(Collectors.toList()));
         jeuEntity.setImage(jeu.getImage());
         jeuEntity.setPrix(jeu.getPrix());
+        jeuEntity.setClassification(ClassificationMapper.toEntity(jeu.getClassification()));
         return jeuEntity;
     }
 }

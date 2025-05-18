@@ -28,6 +28,8 @@ public interface AvatarDataSourcePort {
      * @param id L'identifiant de l'avatar à supprimer.
      */
     void deleteById(Long id);
+
+    long count();
 }
 
 /*

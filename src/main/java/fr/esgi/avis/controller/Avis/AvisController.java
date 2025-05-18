@@ -15,9 +15,10 @@ public class AvisController {
     public Avis createAvis(Avis avis) {
         return avisUseCases.createAvis(
                 avis.getDescription(),
-                avis.getJoueurId(),
                 avis.getJeuId(),
-                avis.getNote()
+                avis.getJoueurId(),
+                avis.getNote(),
+                avis.getModerateurId()
         );
     }
 

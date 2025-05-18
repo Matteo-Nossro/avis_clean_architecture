@@ -8,8 +8,10 @@ import java.util.Optional;
 public interface PlateformeDataSourcePort {
     Plateforme save(Plateforme plateforme);
     Optional<Plateforme> findById(Long id);
+    Optional<Plateforme> findByNom(String nom);
     void deleteById(Long id);
     List<Plateforme> findAll();
+    long count();
 }
 
 // Ce port définit les opérations de persistance pour l'entité Plateforme.

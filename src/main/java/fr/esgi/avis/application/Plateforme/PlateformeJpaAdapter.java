@@ -28,6 +28,12 @@ public class PlateformeJpaAdapter implements PlateformeDataSourcePort {
     }
 
     @Override
+    public Optional<Plateforme> findByNom(String nom) {
+        return plateformeJpaRepository.findByNom(nom)
+                .map(PlateformeMapper::toDomain);
+    }
+
+    @Override
     public void deleteById(Long id) {
         plateformeJpaRepository.deleteById(id);
     }
@@ -37,5 +43,10 @@ public class PlateformeJpaAdapter implements PlateformeDataSourcePort {
         return plateformeJpaRepository.findAll().stream()
                 .map(PlateformeMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long count() {
+        return plateformeJpaRepository.count();
     }
 }

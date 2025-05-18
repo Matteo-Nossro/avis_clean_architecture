@@ -8,8 +8,10 @@ import java.util.Optional;
 public interface GenreDataSourcePort {
     Genre save(Genre genre);
     Optional<Genre> findById(Long id);
+    Optional<Genre> findByNom(String nom);
     void deleteById(Long id);
     List<Genre> findAll();
+    long count();
 }
 
 // Ce port respecte la Clean Architecture en isolant le domaine de Genre des détails techniques de persistance.

@@ -1,5 +1,6 @@
 package fr.esgi.avis.domain.Jeu.model;
 
+import fr.esgi.avis.domain.Classification.model.Classification;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,8 @@ public class Jeu {
     private Editeur editeur;
 
     private Genre genre;
+
+    private Classification classification;
 
     private String description;
 

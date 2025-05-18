@@ -8,8 +8,10 @@ import java.util.Optional;
 public interface EditeurDataSourcePort {
     Editeur save(Editeur editeur);
     Optional<Editeur> findById(Long id);
+    Optional<Editeur> findByNom(String nom);
     void deleteById(Long id);
     List<Editeur> findAll();
+    long count();
 }
 
 // Ce port d'accès aux données pour Editeur respecte la Clean Architecture en définissant

@@ -1,5 +1,6 @@
 package fr.esgi.avis.application.Jeu;
 
+import fr.esgi.avis.application.Classification.ClassificationEntity;
 import fr.esgi.avis.application.Editeur.EditeurEntity;
 import fr.esgi.avis.application.Genre.GenreEntity;
 import fr.esgi.avis.application.Plateforme.PlateformeEntity;
@@ -61,4 +62,8 @@ public class JeuEntity {
     private String image;
 
     private float prix;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "classification_id")
+    private ClassificationEntity classification;
 }

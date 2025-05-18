@@ -15,4 +15,5 @@ public class AvisDTO {
     private Long jeuId;
     private Float note;
     private LocalDateTime dateDEnvoi;
+    private Long moderateurId;
 }

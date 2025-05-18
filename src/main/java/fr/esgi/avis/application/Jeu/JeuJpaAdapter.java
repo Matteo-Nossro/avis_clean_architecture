@@ -38,4 +38,9 @@ public class JeuJpaAdapter implements JeuDataSourcePort {
                 .map(JeuMapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public long count() {
+        return jeuJpaRepository.count();
+    }
 }

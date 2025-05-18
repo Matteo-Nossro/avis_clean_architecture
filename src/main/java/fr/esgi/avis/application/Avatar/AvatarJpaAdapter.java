@@ -27,4 +27,9 @@ public class AvatarJpaAdapter implements AvatarDataSourcePort {
     public void deleteById(Long id) {
         avatarJpaRepository.deleteById(id);
     }
+
+    @Override
+    public long count() {
+        return avatarJpaRepository.count();
+    }
 }

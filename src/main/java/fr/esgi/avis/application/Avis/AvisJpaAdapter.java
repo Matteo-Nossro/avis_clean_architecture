@@ -27,4 +27,9 @@ public class AvisJpaAdapter implements AvisDataSourcePort {
     public void deleteById(Long id) {
         avisJpaRepository.deleteById(id);
     }
+
+    @Override
+    public long count() {
+        return avisJpaRepository.count();
+    }
 }

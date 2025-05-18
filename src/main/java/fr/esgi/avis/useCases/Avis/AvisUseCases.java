@@ -14,8 +14,19 @@ public class AvisUseCases {
         this.avisDataSourcePort = avisDataSourcePort;
     }
 
-    public Avis createAvis(String description, Long joueurId, Long jeuId, Float note) {
-        Avis avis = new Avis(null, description, joueurId, jeuId, note, LocalDateTime.now());
+    public Avis createAvis(String description,
+                           Long jeuId,
+                           Long joueurId,
+                           Float note,
+                           Long moderateurId) {
+        Avis avis = Avis.builder()
+                .description(description)
+                .jeuId(jeuId)
+                .joueurId(joueurId)
+                .note(note)
+                .dateDEnvoi(LocalDateTime.now())
+                .moderateurId(moderateurId)
+                .build();
         return avisDataSourcePort.save(avis);
     }
 

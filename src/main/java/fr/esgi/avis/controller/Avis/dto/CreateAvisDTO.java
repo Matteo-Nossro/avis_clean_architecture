@@ -12,4 +12,5 @@ public class CreateAvisDTO {
     private Long joueurId;
     private Long jeuId;
     private Float note;
+    private Long moderateurId;
 }
