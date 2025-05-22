@@ -1,11 +1,14 @@
 package fr.esgi.avis.controller.Jeu;
 
+import fr.esgi.avis.controller.Avis.AvisDtoMapper;
+import fr.esgi.avis.controller.Avis.dto.AvisDTO;
 import fr.esgi.avis.controller.Jeu.dto.CreateJeuDto;
 import fr.esgi.avis.controller.Jeu.dto.JeuDto;
 import fr.esgi.avis.domain.Editeur.model.Editeur;
 import fr.esgi.avis.domain.Genre.model.Genre;
 import fr.esgi.avis.domain.Jeu.model.Jeu;
 import fr.esgi.avis.domain.Plateforme.model.Plateforme;
+import fr.esgi.avis.useCases.Avis.AvisUseCases;
 import fr.esgi.avis.useCases.Editeur.EditeurUseCases;
 import fr.esgi.avis.useCases.Genre.GenreUseCases;
 import fr.esgi.avis.useCases.Jeu.JeuUseCases;
@@ -29,17 +32,20 @@ public class JeuController {
     private final EditeurUseCases editeurUseCases;
     private final GenreUseCases genreUseCases;
     private final PlateformeUseCases plateformeUseCases;
+    private final AvisUseCases avisUseCases;
 
     public JeuController(
             JeuUseCases jeuUseCases,
             EditeurUseCases editeurUseCases,
             GenreUseCases genreUseCases,
-            PlateformeUseCases plateformeUseCases
+            PlateformeUseCases plateformeUseCases,
+            AvisUseCases avisUseCases
     ) {
         this.jeuUseCases = jeuUseCases;
         this.editeurUseCases = editeurUseCases;
         this.genreUseCases = genreUseCases;
         this.plateformeUseCases = plateformeUseCases;
+        this.avisUseCases = avisUseCases;
     }
 
     @GetMapping
@@ -52,8 +58,15 @@ public class JeuController {
     @GetMapping("/{id}")
     public String afficherDetailsJeu(@PathVariable Long id, Model model) {
         JeuDto jeu = getById(id);
+        // on récupère la liste des avis du use case, on mappe en DTO
+        List<AvisDTO> avis = avisUseCases
+                .getAvisByJeuId(id)
+                .stream()
+                .map(AvisDtoMapper::toDto)
+                .collect(Collectors.toList());
         model.addAttribute("jeu", jeu);
-        return "jeu-avis"; // Va utiliser le template jeu-avis.html
+        model.addAttribute("avis", avis);  // ← ici
+        return "jeu-avis";
     }
 
     public JeuDto create(CreateJeuDto dto) {

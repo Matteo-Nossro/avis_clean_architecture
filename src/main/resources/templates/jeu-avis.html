@@ -18,14 +18,11 @@
   <hr/>
 
   <h2>Avis</h2>
-  <div th:if="${#lists.isEmpty(jeu.avis)}">
-    <p>Aucun avis pour l’instant.</p>
-  </div>
   <ul>
-    <li th:each="avis : ${jeu.avis}">
-      <strong th:text="${avis.auteur}"/> :
-      <span th:text="${avis.note} + '/5'"/> –
-      <span th:text="${avis.commentaire}"/>
+    <li th:each="a : ${avis}">
+      <strong th:text="${a.joueurId}"/> :
+      <span th:text="${a.note} + '/5'"/> –
+      <span th:text="${a.description}"/>
     </li>
   </ul>
 
