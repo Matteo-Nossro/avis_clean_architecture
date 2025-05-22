@@ -3,8 +3,11 @@ package fr.esgi.avis.controller.Jeu;
 import fr.esgi.avis.controller.Avis.AvisController;
 import fr.esgi.avis.controller.Avis.AvisDtoMapper;
 import fr.esgi.avis.controller.Avis.dto.AvisDTO;
+import fr.esgi.avis.controller.Editeur.EditeurDtoMapper;
+import fr.esgi.avis.controller.Genre.GenreDtoMapper;
 import fr.esgi.avis.controller.Jeu.dto.CreateJeuDto;
 import fr.esgi.avis.controller.Jeu.dto.JeuDto;
+import fr.esgi.avis.controller.Plateforme.PlateformeDtoMapper;
 import fr.esgi.avis.domain.Avis.model.Avis;
 import fr.esgi.avis.domain.Editeur.model.Editeur;
 import fr.esgi.avis.domain.Genre.model.Genre;
@@ -17,6 +20,7 @@ import fr.esgi.avis.useCases.Jeu.JeuUseCases;
 import fr.esgi.avis.useCases.Joueur.JoueurUseCases;
 import fr.esgi.avis.useCases.Plateforme.PlateformeUseCases;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -107,6 +111,32 @@ public class JeuController {
 
         // 5) redirect pour éviter le repost
         return "redirect:/jeux/" + id;
+    }
+
+    @GetMapping("/ajouter")
+    @PreAuthorize("hasRole('MODERATEUR')")
+    public String afficherFormulaireAjoutJeu(Model model) {
+        // Récupérer les données nécessaires pour le formulaire
+        model.addAttribute("editeurs", editeurUseCases.getAllEditeurs().stream()
+                .map(EditeurDtoMapper::toDto)
+                .collect(Collectors.toList()));
+
+        model.addAttribute("genres", genreUseCases.getAllGenres().stream()
+                .map(GenreDtoMapper::toDto)
+                .collect(Collectors.toList()));
+
+        model.addAttribute("plateformes", plateformeUseCases.getAllPlateformes().stream()
+                .map(PlateformeDtoMapper::toDto)
+                .collect(Collectors.toList()));
+
+        return "moderateur/ajout-jeu";
+    }
+
+    @PostMapping("/ajouter")
+    @PreAuthorize("hasRole('MODERATEUR')")
+    public String traiterAjoutJeu(@ModelAttribute CreateJeuDto createJeuDto) {
+        JeuDto nouveauJeu = create(createJeuDto);
+        return "redirect:/jeux/" + nouveauJeu.getId();
     }
 
     public JeuDto create(CreateJeuDto dto) {

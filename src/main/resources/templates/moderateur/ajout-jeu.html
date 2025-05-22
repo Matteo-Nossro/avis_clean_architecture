@@ -9,7 +9,7 @@
 
 <div class="container">
     <h1>Ajouter un nouveau jeu</h1>
-    <form th:action="@{/moderateur/ajout-jeu}" method="post">
+    <form th:action="@{/jeux/ajouter}" method="post">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 
         <div>
