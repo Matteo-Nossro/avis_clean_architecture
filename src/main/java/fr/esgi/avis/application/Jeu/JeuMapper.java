@@ -48,4 +48,25 @@ public class JeuMapper {
         jeuEntity.setClassification(ClassificationMapper.toEntity(jeu.getClassification()));
         return jeuEntity;
     }
+
+    public static Jeu toDomainShallow(JeuEntity e) {
+        if (e == null) {
+            return null;
+        }
+        return Jeu.builder()
+                .id(e.getId())
+                .nom(e.getNom())
+                .editeur(EditeurMapper.toDomain(e.getEditeur()))
+                .genre(GenreMapper.toDomain(e.getGenre()))
+                .description(e.getDescription())
+                .dateDeSortie(e.getDateDeSortie())
+                .plateformes(
+                        e.getPlateformes().stream()
+                                .map(PlateformeMapper::toDomain)
+                                .collect(Collectors.toList())
+                )
+                .image(e.getImage())
+                .prix(e.getPrix())
+                .build();
+    }
 }
