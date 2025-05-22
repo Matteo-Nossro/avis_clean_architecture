@@ -83,33 +83,32 @@ public class JeuController {
     }
 
     @PostMapping("/{id}/avis")
+    @PreAuthorize("hasRole('JOUEUR')")
     public String ajouterAvis(
             @PathVariable Long id,
             @RequestParam("note") Float note,
             @RequestParam("description") String description,
             Principal principal
     ) {
-        // 1) récupérer le pseudo
         String pseudo = principal.getName();
 
-        // 2) lookup du Joueur en base via le use case
         Long joueurId = joueurUseCases
                 .getJoueurByPseudo(pseudo)
                 .orElseThrow(() -> new UsernameNotFoundException("Joueur introuvable : " + pseudo))
                 .getId();
 
-        // 3) construire l’objet Avis domaine
+        Long moderateurId = 1L; // Modérateur par défaut
+
         Avis nouveauAvis = Avis.builder()
                 .jeuId(id)
                 .joueurId(joueurId)
                 .note(note)
                 .description(description)
+                .moderateurId(moderateurId)
                 .build();
 
-        // 4) déléguer à votre composant AvisController
         avisController.createAvis(nouveauAvis);
 
-        // 5) redirect pour éviter le repost
         return "redirect:/jeux/" + id;
     }
 
