@@ -1,9 +1,11 @@
 package fr.esgi.avis.controller.Jeu;
 
+import fr.esgi.avis.controller.Avis.AvisController;
 import fr.esgi.avis.controller.Avis.AvisDtoMapper;
 import fr.esgi.avis.controller.Avis.dto.AvisDTO;
 import fr.esgi.avis.controller.Jeu.dto.CreateJeuDto;
 import fr.esgi.avis.controller.Jeu.dto.JeuDto;
+import fr.esgi.avis.domain.Avis.model.Avis;
 import fr.esgi.avis.domain.Editeur.model.Editeur;
 import fr.esgi.avis.domain.Genre.model.Genre;
 import fr.esgi.avis.domain.Jeu.model.Jeu;
@@ -12,15 +14,16 @@ import fr.esgi.avis.useCases.Avis.AvisUseCases;
 import fr.esgi.avis.useCases.Editeur.EditeurUseCases;
 import fr.esgi.avis.useCases.Genre.GenreUseCases;
 import fr.esgi.avis.useCases.Jeu.JeuUseCases;
+import fr.esgi.avis.useCases.Joueur.JoueurUseCases;
 import fr.esgi.avis.useCases.Plateforme.PlateformeUseCases;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,26 +36,32 @@ public class JeuController {
     private final GenreUseCases genreUseCases;
     private final PlateformeUseCases plateformeUseCases;
     private final AvisUseCases avisUseCases;
+    private final AvisController avisController;
+    private final JoueurUseCases joueurUseCases;
 
     public JeuController(
             JeuUseCases jeuUseCases,
             EditeurUseCases editeurUseCases,
             GenreUseCases genreUseCases,
             PlateformeUseCases plateformeUseCases,
-            AvisUseCases avisUseCases
+            AvisUseCases avisUseCases,
+            AvisController avisController,
+            JoueurUseCases joueurUseCases
     ) {
         this.jeuUseCases = jeuUseCases;
         this.editeurUseCases = editeurUseCases;
         this.genreUseCases = genreUseCases;
         this.plateformeUseCases = plateformeUseCases;
         this.avisUseCases = avisUseCases;
+        this.avisController = avisController;
+        this.joueurUseCases = joueurUseCases;
     }
 
     @GetMapping
     public String afficherTousLesJeux(Model model) {
         List<JeuDto> jeux = getAll();
         model.addAttribute("jeux", jeux);
-        return "jeux"; // Va utiliser le template jeux.html
+        return "jeux";
     }
 
     @GetMapping("/{id}")
@@ -67,6 +76,37 @@ public class JeuController {
         model.addAttribute("jeu", jeu);
         model.addAttribute("avis", avis);  // ← ici
         return "jeu-avis";
+    }
+
+    @PostMapping("/{id}/avis")
+    public String ajouterAvis(
+            @PathVariable Long id,
+            @RequestParam("note") Float note,
+            @RequestParam("description") String description,
+            Principal principal
+    ) {
+        // 1) récupérer le pseudo
+        String pseudo = principal.getName();
+
+        // 2) lookup du Joueur en base via le use case
+        Long joueurId = joueurUseCases
+                .getJoueurByPseudo(pseudo)
+                .orElseThrow(() -> new UsernameNotFoundException("Joueur introuvable : " + pseudo))
+                .getId();
+
+        // 3) construire l’objet Avis domaine
+        Avis nouveauAvis = Avis.builder()
+                .jeuId(id)
+                .joueurId(joueurId)
+                .note(note)
+                .description(description)
+                .build();
+
+        // 4) déléguer à votre composant AvisController
+        avisController.createAvis(nouveauAvis);
+
+        // 5) redirect pour éviter le repost
+        return "redirect:/jeux/" + id;
     }
 
     public JeuDto create(CreateJeuDto dto) {
