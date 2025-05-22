@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="fragments/header :: *">
-<th:block>
-  <h2 th:text="${jeu.nom} + ' – Avis'">Avis du jeu</h2>
-  <a th:href="@{|/jeux/${jeu.id}/avis/nouveau|}">Rédiger un avis</a>
-  <table>
-    <tr><th>Joueur</th><th>Note</th><th>Texte</th></tr>
-    <tr th:each="a : ${avis}">
-      <td th:text="${a.joueurId}"></td>
-      <td th:text="${a.note}"></td>
-      <td th:text="${a.description}"></td>
-    </tr>
-  </table>
-</th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${jeu.nom} + ' – Avis'">Détails Jeu</title>
+</head>
+<body>
+<div th:replace="fragments/header :: body"></div>
+
+<div class="container">
+  <h1 th:text="${jeu.nom}">Nom du jeu</h1>
+  <p><strong>Éditeur :</strong> <span th:text="${jeu.editeur.nom}"/></p>
+  <p><strong>Genre :</strong> <span th:text="${jeu.genre.nom}"/></p>
+  <p th:if="${jeu.description}" th:text="${jeu.description}"></p>
+  <p><strong>Prix :</strong> <span th:text="${jeu.prix} + ' €'"/></p>
+
+  <hr/>
+
+  <h2>Avis</h2>
+  <div th:if="${#lists.isEmpty(jeu.avis)}">
+    <p>Aucun avis pour l’instant.</p>
+  </div>
+  <ul>
+    <li th:each="avis : ${jeu.avis}">
+      <strong th:text="${avis.auteur}"/> :
+      <span th:text="${avis.note} + '/5'"/> –
+      <span th:text="${avis.commentaire}"/>
+    </li>
+  </ul>
+
+  <!-- Formulaire de création d’avis pour les joueurs -->
+  <div sec:authorize="hasRole('JOUEUR')">
+    <h3>Rédiger un avis</h3>
+    <form th:action="@{/jeux/{id}/avis(id=${jeu.id})}" method="post">
+      <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+      <div>
+        <label for="note">Note (1-5) :</label>
+        <select id="note" name="note">
+          <option th:each="n : ${#numbers.sequence(1,5)}"
+                  th:value="${n}" th:text="${n}">1</option>
+        </select>
+      </div>
+      <div>
+        <label for="commentaire">Commentaire :</label>
+        <textarea id="commentaire" name="commentaire" rows="3"></textarea>
+      </div>
+      <button type="submit">Envoyer</button>
+    </form>
+  </div>
+  <div sec:authorize="isAnonymous()">
+    <p><a th:href="@{/login}">Connectez-vous</a> pour rédiger un avis.</p>
+  </div>
+</div>
+</body>
+</html>

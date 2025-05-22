@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/styles.css}">
   <title th:insert="~{::title}">Mon Application Avis</title>
 </head>
 <body>
-<nav>
-  <a th:href="@{/login}">Login</a> |
-  <a th:href="@{/jeux}">Jeux</a> |
-  <a th:href="@{/moderateur/ajout-jeu}">Ajouter Jeu</a> |
-  <a th:href="@{/moderateur/moderation-avis}">Modération</a>
+<nav th:fragment="nav">
+  <!-- Joueur ou modérateur non connecté -->
+  <span sec:authorize="isAnonymous()">
+    <a th:href="@{/login}">Login</a>
+  </span>
+  <!-- Tous les utilisateurs connectés -->
+  <span sec:authorize="isAuthenticated()">
+    <a th:href="@{/jeux}">Jeux</a> |
+    <form th:action="@{/logout}" method="post" style="display:inline">
+  <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+  <button type="submit" style="background:none;border:none;padding:0;color:#007bff;cursor:pointer">
+    Logout
+  </button>
+</form>
+  </span>
+  <!-- Seulement modérateur -->
+  <span sec:authorize="hasRole('MODERATEUR')">
+    | <a th:href="@{/moderateur/ajout-jeu}">Ajouter Jeu</a>
+    | <a th:href="@{/moderateur/moderation-avis}">Modération</a>
+  </span>
 </nav>
 <hr/>
-<div class="container">
+</body>
+</html>

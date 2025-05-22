@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Ajouter un Jeu</title>
 </head>
 <body>
+<div th:replace="fragments/header :: body"></div>
 
+<div class="container">
+    <h1>Ajouter un nouveau jeu</h1>
+    <form th:action="@{/moderateur/ajout-jeu}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+
+        <div>
+            <label for="nom">Nom :</label>
+            <input id="nom" name="nom" type="text" required/>
+        </div>
+        <div>
+            <label for="editeur">Éditeur :</label>
+            <select id="editeur" name="editeurId" required>
+                <option th:each="e : ${editeurs}"
+                        th:value="${e.id}"
+                        th:text="${e.nom}">Éditeur</option>
+            </select>
+        </div>
+        <div>
+            <label for="genre">Genre :</label>
+            <select id="genre" name="genreId" required>
+                <option th:each="g : ${genres}"
+                        th:value="${g.id}"
+                        th:text="${g.nom}">Genre</option>
+            </select>
+        </div>
+        <div>
+            <label for="plateformes">Plateformes :</label>
+            <select id="plateformes" name="plateformeIds" multiple required>
+                <option th:each="p : ${plateformes}"
+                        th:value="${p.id}"
+                        th:text="${p.nom}">Plateforme</option>
+            </select>
+        </div>
+        <div>
+            <label for="dateDeSortie">Date de sortie :</label>
+            <input id="dateDeSortie" name="dateDeSortie" type="date" required/>
+        </div>
+        <div>
+            <label for="prix">Prix (€) :</label>
+            <input id="prix" name="prix" type="number" step="0.01" required/>
+        </div>
+        <div>
+            <label for="image">URL de l’image :</label>
+            <input id="image" name="image" type="url"/>
+        </div>
+        <div>
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+        </div>
+        <button type="submit">Ajouter le jeu</button>
+    </form>
+</div>
 </body>
 </html>

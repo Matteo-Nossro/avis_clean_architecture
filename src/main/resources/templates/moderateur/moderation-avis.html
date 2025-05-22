@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modération des avis</title>
+</head>
+<body>
+<div th:replace="fragments/header :: body"></div>
+
+<div class="container">
+  <h1>Modération des avis</h1>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Jeu</th>
+      <th>Auteur</th>
+      <th>Note</th>
+      <th>Commentaire</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="avis : ${avisEnAttente}">
+      <td th:text="${avis.jeu.nom}">Jeu</td>
+      <td th:text="${avis.auteur}">Auteur</td>
+      <td th:text="${avis.note}">Note</td>
+      <td th:text="${avis.commentaire}">Commentaire</td>
+      <td>
+        <form th:action="@{/moderateur/moderation-avis/accepter/{id}(id=${avis.id})}" method="post" style="display:inline">
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+          <button type="submit">Accepter</button>
+        </form>
+        <form th:action="@{/moderateur/moderation-avis/refuser/{id}(id=${avis.id})}" method="post" style="display:inline">
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+          <button type="submit">Refuser</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div th:if="${#lists.isEmpty(avisEnAttente)}">
+    <p>Aucun avis en attente de modération.</p>
+  </div>
+</div>
+</body>
+</html>
