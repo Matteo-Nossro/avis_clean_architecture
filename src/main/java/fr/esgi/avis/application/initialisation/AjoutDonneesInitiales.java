@@ -238,18 +238,119 @@ public class AjoutDonneesInitiales {
 
     private void ajouterJeux() {
         if (jeuDataSourcePort.count() == 0) {
+            // Elden Ring
             jeuDataSourcePort.save(Jeu.builder()
-                    .nom("Zelda Tears of the Kingdom")
-                    .editeur(editeurDataSourcePort.findByNom("Nintendo").orElseThrow())
-                    .genre(genreDataSourcePort.findByNom("Action").orElseThrow())
-                    .classification(classificationDataSourcePort.findByNom("PEGI 12").orElseThrow())
-                    .description("L'intrigue se déroule dans le Royaume d'Hyrule…")
-                    .dateDeSortie(LocalDate.of(2023,5,12))
-                    .plateformes(List.of(plateformeDataSourcePort.findByNom("Nintendo Switch").orElseThrow()))
-                    .image("doc/assets/zelda.jpg")
+                    .nom("Elden Ring")
+                    .editeur(editeurDataSourcePort.findByNom("FromSoftware").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("RPG (Role-playing game)").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 16").orElseThrow())
+                    .description("Un monde ouvert sombre créé en collaboration avec George R. R. Martin, où l’exploration et les combats exigeants sont au cœur de l’expérience.")
+                    .dateDeSortie(LocalDate.of(2022, 2, 25))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("PlayStation 5").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("PC").orElseThrow()
+                    ))
+                    .image("doc/assets/eldenring.jpg")
+                    .prix(69.99f)
+                    .build());
+
+            // FIFA 24
+            jeuDataSourcePort.save(Jeu.builder()
+                    .nom("FIFA 24")
+                    .editeur(editeurDataSourcePort.findByNom("Electronic Arts").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("Sport").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 3").orElseThrow())
+                    .description("Le dernier opus de la célèbre franchise de simulation de football, avec des visuels améliorés et un gameplay toujours plus réaliste.")
+                    .dateDeSortie(LocalDate.of(2023, 9, 29))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("PlayStation 5").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("PC").orElseThrow()
+                    ))
+                    .image("doc/assets/fifa24.jpg")
                     .prix(59.99f)
                     .build());
-            // … ajoute les autres jeux de la même façon …
+
+            // Cyberpunk 2077
+            jeuDataSourcePort.save(Jeu.builder()
+                    .nom("Cyberpunk 2077")
+                    .editeur(editeurDataSourcePort.findByNom("CD Projekt Red").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("RPG (Role-playing game)").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 18").orElseThrow())
+                    .description("Un RPG futuriste en monde ouvert, plongée dans la mégalopole de Night City, avec des choix narratifs et un univers riche.")
+                    .dateDeSortie(LocalDate.of(2020, 12, 10))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("PC").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("PlayStation 5").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow()
+                    ))
+                    .image("doc/assets/cyberpunk2077.jpg")
+                    .prix(49.99f)
+                    .build());
+
+            // Halo Infinite
+            jeuDataSourcePort.save(Jeu.builder()
+                    .nom("Halo Infinite")
+                    .editeur(editeurDataSourcePort.findByNom("Microsoft").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("FPS (First person shooter)").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 16").orElseThrow())
+                    .description("Le retour du légendaire Master Chief dans un mode campagne épique et un multijoueur gratuit soutenu par la communauté.")
+                    .dateDeSortie(LocalDate.of(2021, 12, 8))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("PC").orElseThrow()
+                    ))
+                    .image("doc/assets/haloinfinite.jpg")
+                    .prix(59.99f)
+                    .build());
+
+            // Animal Crossing: New Horizons
+            jeuDataSourcePort.save(Jeu.builder()
+                    .nom("Animal Crossing: New Horizons")
+                    .editeur(editeurDataSourcePort.findByNom("Nintendo").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("Simulation").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 3").orElseThrow())
+                    .description("Construisez et personnalisez votre île paradisiaque, rencontrez des villageois charmants et vivez à votre rythme.")
+                    .dateDeSortie(LocalDate.of(2020, 3, 20))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("Nintendo Switch").orElseThrow()
+                    ))
+                    .image("doc/assets/animalcrossing.jpg")
+                    .prix(49.99f)
+                    .build());
+
+            // League of Legends
+            jeuDataSourcePort.save(Jeu.builder()
+                    .nom("League of Legends")
+                    .editeur(editeurDataSourcePort.findByNom("Riot Games").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("MOBA (Multiplayer online battle arena)").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 12").orElseThrow())
+                    .description("Le MOBA incontournable, où deux équipes de puissants champions s’affrontent pour détruire le Nexus adverse.")
+                    .dateDeSortie(LocalDate.of(2009, 10, 27))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("PC").orElseThrow()
+                    ))
+                    .image("doc/assets/lol.jpg")
+                    .prix(0.00f)
+                    .build());
+
+            // Mass Effect Legendary Edition
+            jeuDataSourcePort.save(Jeu.builder()
+                    .nom("Mass Effect Legendary Edition")
+                    .editeur(editeurDataSourcePort.findByNom("BioWare").orElseThrow())
+                    .genre(genreDataSourcePort.findByNom("RPG (Role-playing game)").orElseThrow())
+                    .classification(classificationDataSourcePort.findByNom("PEGI 16").orElseThrow())
+                    .description("Remasterisation des trois premiers Mass Effect avec graphismes améliorés et gameplay retravaillé.")
+                    .dateDeSortie(LocalDate.of(2021, 5, 14))
+                    .plateformes(List.of(
+                            plateformeDataSourcePort.findByNom("PlayStation 5").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("PC").orElseThrow(),
+                            plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow()
+                    ))
+                    .image("doc/assets/masseffect.jpg")
+                    .prix(39.99f)
+                    .build());
         }
     }
 
