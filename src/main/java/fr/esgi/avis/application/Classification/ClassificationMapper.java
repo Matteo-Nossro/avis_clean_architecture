@@ -16,7 +16,6 @@ public class ClassificationMapper {
         if (e == null) {
             return null;
         }
-        // On utilise directement le builder généré par Lombok
         Classification classification = Classification.builder()
                 .id(e.getId())
                 .nom(e.getNom())

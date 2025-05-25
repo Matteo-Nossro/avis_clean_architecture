@@ -25,7 +25,6 @@
   <!-- Seulement modérateur -->
   <span sec:authorize="hasRole('MODERATEUR')">
     | <a th:href="@{/jeux/ajouter}">Ajouter Jeu</a>
-    | <a th:href="@{/moderateur/moderation-avis}">Modération</a>
   </span>
 </nav>
 <hr/>
