@@ -1,0 +1,54 @@
+/* style.css */
+
+/* Encadrement du formulaire */
+.card {
+    border-radius: 1rem;
+}
+
+/* En-tête coloré */
+.card-header {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+/* Titre de la card */
+.card-header h2 {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Ombre légère pour la carte */
+.card.shadow-sm {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Bouton principal */
+.btn-success {
+    background-color: #00b894;
+    border-color: #00b894;
+    transition: background-color 0.2s ease;
+}
+.btn-success:hover {
+    background-color: #019874;
+    border-color: #019874;
+}
+
+/* Espacements */
+.container.my-5 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Aide texte pour sélection multiple */
+.form-text {
+    font-size: 0.875rem;
+    color: #636e72;
+}
+
+/* Inputs focus */
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+    border-color: #2ecc71;
+}

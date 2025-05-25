@@ -157,6 +157,9 @@ Voici les routes principales utilisées pour interagir avec l'application via un
 
 Ces routes correspondent aux fonctionnalités principales de navigation et de gestion des jeux et des avis au sein de l'application. L'accès aux fonctionnalités de création/modification est contrôlé par des rôles utilisateurs.
 
-
+##  Captures d'écran
+![ListeJeux](liste-jeux.png)
+![Ajout](ajout.png)
+![avis-jeu](avis-jeu.png)
 
 ![Diagramme Avis](avis.png)

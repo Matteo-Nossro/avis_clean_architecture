@@ -251,7 +251,7 @@ public class AjoutDonneesInitiales {
                             plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow(),
                             plateformeDataSourcePort.findByNom("PC").orElseThrow()
                     ))
-                    .image("doc/assets/eldenring.jpg")
+                    .image("assets/eldenring.jpg")
                     .prix(69.99f)
                     .build());
 
@@ -268,7 +268,7 @@ public class AjoutDonneesInitiales {
                             plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow(),
                             plateformeDataSourcePort.findByNom("PC").orElseThrow()
                     ))
-                    .image("doc/assets/fifa24.jpg")
+                    .image("assets/fifa24.jpg")
                     .prix(59.99f)
                     .build());
 
@@ -285,7 +285,7 @@ public class AjoutDonneesInitiales {
                             plateformeDataSourcePort.findByNom("PlayStation 5").orElseThrow(),
                             plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow()
                     ))
-                    .image("doc/assets/cyberpunk2077.jpg")
+                    .image("assets/cyberpunk2077.jpg")
                     .prix(49.99f)
                     .build());
 
@@ -301,7 +301,7 @@ public class AjoutDonneesInitiales {
                             plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow(),
                             plateformeDataSourcePort.findByNom("PC").orElseThrow()
                     ))
-                    .image("doc/assets/haloinfinite.jpg")
+                    .image("assets/haloinfinite.jpg")
                     .prix(59.99f)
                     .build());
 
@@ -316,7 +316,7 @@ public class AjoutDonneesInitiales {
                     .plateformes(List.of(
                             plateformeDataSourcePort.findByNom("Nintendo Switch").orElseThrow()
                     ))
-                    .image("doc/assets/animalcrossing.jpg")
+                    .image("assets/animalcrossing.jpg")
                     .prix(49.99f)
                     .build());
 
@@ -331,7 +331,7 @@ public class AjoutDonneesInitiales {
                     .plateformes(List.of(
                             plateformeDataSourcePort.findByNom("PC").orElseThrow()
                     ))
-                    .image("doc/assets/lol.jpg")
+                    .image("assets/lol.jpeg")
                     .prix(0.00f)
                     .build());
 
@@ -348,7 +348,7 @@ public class AjoutDonneesInitiales {
                             plateformeDataSourcePort.findByNom("PC").orElseThrow(),
                             plateformeDataSourcePort.findByNom("Xbox Series X").orElseThrow()
                     ))
-                    .image("doc/assets/masseffect.jpg")
+                    .image("assets/masseffect.jpeg")
                     .prix(39.99f)
                     .build());
         }

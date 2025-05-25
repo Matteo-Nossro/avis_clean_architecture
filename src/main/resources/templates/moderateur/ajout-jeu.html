@@ -3,61 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajouter un Jeu</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-…"
+            crossorigin="anonymous">
 </head>
 <body>
 <div th:replace="fragments/header :: body"></div>
 
-<div class="container">
-    <h1>Ajouter un nouveau jeu</h1>
-    <form th:action="@{/jeux/ajouter}" method="post">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+<div class="container my-5" style="max-width: 700px;">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Ajouter un nouveau jeu</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/jeux/ajouter}" method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
 
-        <div>
-            <label for="nom">Nom :</label>
-            <input id="nom" name="nom" type="text" required/>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input id="nom" name="nom" type="text" class="form-control" required/>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="editeur" class="form-label">Éditeur</label>
+                        <select id="editeur" name="editeurId" class="form-select" required>
+                            <option th:each="e : ${editeurs}"
+                                    th:value="${e.id}"
+                                    th:text="${e.nom}">Éditeur</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="genre" class="form-label">Genre</label>
+                        <select id="genre" name="genreId" class="form-select" required>
+                            <option th:each="g : ${genres}"
+                                    th:value="${g.id}"
+                                    th:text="${g.nom}">Genre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="plateformes" class="form-label">Plateformes</label>
+                    <select id="plateformes" name="plateformeIds" class="form-select" multiple required>
+                        <option th:each="p : ${plateformes}"
+                                th:value="${p.id}"
+                                th:text="${p.nom}">Plateforme</option>
+                    </select>
+                    <div class="form-text">Maintenez Ctrl (Cmd) pour sélectionner plusieurs.</div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="dateDeSortie" class="form-label">Date de sortie</label>
+                        <input id="dateDeSortie" name="dateDeSortie" type="date" class="form-control" required/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="prix" class="form-label">Prix (€)</label>
+                        <input id="prix" name="prix" type="number" step="0.01" class="form-control" required/>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">URL de l’image</label>
+                    <input id="image" name="image" type="url" class="form-control"/>
+                </div>
+
+                <div class="mb-4">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" name="description"
+                              rows="4" class="form-control"></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">Ajouter le jeu</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="editeur">Éditeur :</label>
-            <select id="editeur" name="editeurId" required>
-                <option th:each="e : ${editeurs}"
-                        th:value="${e.id}"
-                        th:text="${e.nom}">Éditeur</option>
-            </select>
-        </div>
-        <div>
-            <label for="genre">Genre :</label>
-            <select id="genre" name="genreId" required>
-                <option th:each="g : ${genres}"
-                        th:value="${g.id}"
-                        th:text="${g.nom}">Genre</option>
-            </select>
-        </div>
-        <div>
-            <label for="plateformes">Plateformes :</label>
-            <select id="plateformes" name="plateformeIds" multiple required>
-                <option th:each="p : ${plateformes}"
-                        th:value="${p.id}"
-                        th:text="${p.nom}">Plateforme</option>
-            </select>
-        </div>
-        <div>
-            <label for="dateDeSortie">Date de sortie :</label>
-            <input id="dateDeSortie" name="dateDeSortie" type="date" required/>
-        </div>
-        <div>
-            <label for="prix">Prix (€) :</label>
-            <input id="prix" name="prix" type="number" step="0.01" required/>
-        </div>
-        <div>
-            <label for="image">URL de l’image :</label>
-            <input id="image" name="image" type="url"/>
-        </div>
-        <div>
-            <label for="description">Description :</label>
-            <textarea id="description" name="description" rows="4"></textarea>
-        </div>
-        <button type="submit">Ajouter le jeu</button>
-    </form>
+    </div>
 </div>
 </body>
 </html>
